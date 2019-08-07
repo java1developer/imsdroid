@@ -64,9 +64,9 @@ public enum NgnMediaType {
         };
 		static int ConvertFromNative(twrap_media_type_t mediaType) {
 			int t = NgnMediaType.None.getValue();
-            for (int i = 0; i < __media_type_binds.length; ++i) {
-                if ((__media_type_binds[i].tnative.swigValue() & mediaType.swigValue()) == __media_type_binds[i].tnative.swigValue()) {
-                    t |= __media_type_binds[i].twrap.getValue();
+            for (media_type_bind_s media_type_bind : __media_type_binds) {
+                if ((media_type_bind.tnative.swigValue() & mediaType.swigValue()) == media_type_bind.tnative.swigValue()) {
+                    t |= media_type_bind.twrap.getValue();
                 }
             }
             return t;
@@ -74,17 +74,16 @@ public enum NgnMediaType {
 
 		static int ConvertToNative(NgnMediaType mediaType) {
 			int t = twrap_media_type_t.twrap_media_none.swigValue();
-            for (int i = 0; i < __media_type_binds.length; ++i)  {
-                if ((__media_type_binds[i].twrap.getValue() & mediaType.getValue()) == __media_type_binds[i].twrap.getValue()) {
-                    t |= __media_type_binds[i].tnative.swigValue();
+            for (media_type_bind_s media_type_bind : __media_type_binds) {
+                if ((media_type_bind.twrap.getValue() & mediaType.getValue()) == media_type_bind.twrap.getValue()) {
+                    t |= media_type_bind.tnative.swigValue();
                 }
             }
             return t;
         }
-    };
-    
-	
-	private NgnMediaType(final int value) {
+    }
+
+	NgnMediaType(final int value) {
 		mValue = value;
 	}
 	

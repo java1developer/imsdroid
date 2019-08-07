@@ -29,18 +29,18 @@ public enum tmsrp_request_type_t {
   }
 
   @SuppressWarnings("unused")
-  private tmsrp_request_type_t() {
+  tmsrp_request_type_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tmsrp_request_type_t(int swigValue) {
+  tmsrp_request_type_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tmsrp_request_type_t(tmsrp_request_type_t swigEnum) {
+  tmsrp_request_type_t(tmsrp_request_type_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

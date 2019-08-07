@@ -24,5 +24,5 @@ import java.io.InputStream;
 public interface INgnHttpClientService extends INgnBaseService{
 	String get(String uri);
 	String post(String uri, String contentUTF8, String contentType);
-	public InputStream getBinary(String uri);
+	InputStream getBinary(String uri);
 }

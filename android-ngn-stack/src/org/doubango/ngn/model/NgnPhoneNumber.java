@@ -23,7 +23,7 @@ import org.doubango.ngn.utils.NgnPredicate;
 import org.doubango.ngn.utils.NgnStringUtils;
 
 public class NgnPhoneNumber {	
-	public static enum PhoneType{
+	public enum PhoneType{
 	    CUSTOM, //Put the actual type in LABEL.
 	    
 	    HOME,

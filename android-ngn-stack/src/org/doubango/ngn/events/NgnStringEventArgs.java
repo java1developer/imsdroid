@@ -25,7 +25,7 @@ import android.os.Parcelable;
 /**
  * Generic event argument containing short string
  */
-public class NgnStringEventArgs extends NgnEventArgs {
+public class NgnStringEventArgs extends NgnBaseEventArgs {
 	private String mValue;
 	
 	public NgnStringEventArgs(String value){

@@ -32,7 +32,7 @@ public class NgnPublicationSession extends NgnSipSession {
 
 	private final PublicationSession mSession;
 
-	private final static NgnObservableHashMap<Long, NgnPublicationSession> sSessions = new NgnObservableHashMap<Long, NgnPublicationSession>(
+	private final static NgnObservableHashMap<Long, NgnPublicationSession> sSessions = new NgnObservableHashMap<>(
 			true);
 
 	public static NgnPublicationSession createOutgoingSession(

@@ -95,7 +95,7 @@ public class NgnAVSession extends NgnInviteSession{
 	private boolean mMuteOn;
 	private boolean mSpeakerOn;
 	
-    private final static NgnObservableHashMap<Long, NgnAVSession> sSessions = new NgnObservableHashMap<Long, NgnAVSession>(true);
+    private final static NgnObservableHashMap<Long, NgnAVSession> sSessions = new NgnObservableHashMap<>(true);
 	private static int AudioManager_MODE_IN_COMMUNICATION = AudioManager.MODE_IN_CALL;
 
 	static {
@@ -1041,7 +1041,7 @@ public class NgnAVSession extends NgnInviteSession{
 			intent.putExtra(NgnMessagingEventArgs.EXTRA_DATE, NgnDateTimeUtils.now());
 			intent.putExtra(NgnMessagingEventArgs.EXTRA_EMBEDDED, args);
 			intent.putExtra(NgnMessagingEventArgs.EXTRA_T140_DATA_TYPE, dataType);
-			NgnApplication.getContext().sendBroadcast(intent);
+			NgnApplication.getInstance().sendBroadcast(intent);
 			
 			return 0;
 		}

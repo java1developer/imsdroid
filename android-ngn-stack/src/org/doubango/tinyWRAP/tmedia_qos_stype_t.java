@@ -28,18 +28,18 @@ public enum tmedia_qos_stype_t {
   }
 
   @SuppressWarnings("unused")
-  private tmedia_qos_stype_t() {
+  tmedia_qos_stype_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_qos_stype_t(int swigValue) {
+  tmedia_qos_stype_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_qos_stype_t(tmedia_qos_stype_t swigEnum) {
+  tmedia_qos_stype_t(tmedia_qos_stype_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

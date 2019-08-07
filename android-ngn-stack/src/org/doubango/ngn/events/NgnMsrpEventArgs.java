@@ -22,7 +22,7 @@ package org.doubango.ngn.events;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NgnMsrpEventArgs extends NgnEventArgs{
+public class NgnMsrpEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnMsrpEventArgs.class.getCanonicalName();
 	
 	private long mSessionId;
@@ -30,7 +30,7 @@ public class NgnMsrpEventArgs extends NgnEventArgs{
     
     public static final String ACTION_MSRP_EVENT = TAG + ".ACTION_MSRP_EVENT";
     
-    public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED;
+    public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED;
     public static final String EXTRA_DATA = "data";
     public static final String EXTRA_CONTENT_TYPE = "content-type";
     public static final String EXTRA_WRAPPED_CONTENT_TYPE = "w-content-type";

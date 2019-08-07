@@ -29,7 +29,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class NgnMediaPluginEventArgs extends NgnEventArgs{
+public class NgnMediaPluginEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnMediaPluginEventArgs.class.getCanonicalName();
 	
 	private BigInteger mPluginId;
@@ -38,7 +38,7 @@ public class NgnMediaPluginEventArgs extends NgnEventArgs{
 	
 	public static final String ACTION_MEDIA_PLUGIN_EVENT = TAG + ".ACTION_MEDIA_PLUGIN_EVENT";
 	
-	public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED;
+	public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED;
 	
 	public NgnMediaPluginEventArgs(BigInteger pluginId, NgnMediaType mediaType, NgnMediaPluginEventTypes eventType){
 		super();
@@ -88,12 +88,8 @@ public class NgnMediaPluginEventArgs extends NgnEventArgs{
 	}
 	
 	public static void broadcastEvent(NgnMediaPluginEventArgs args){
-		if(NgnApplication.getContext() == null){
-			Log.e(TAG,"Null application context");
-			return;
-		}
 		final Intent intent = new Intent(NgnMediaPluginEventArgs.ACTION_MEDIA_PLUGIN_EVENT);
 		intent.putExtra(NgnMediaPluginEventArgs.EXTRA_EMBEDDED, args);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 }

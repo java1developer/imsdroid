@@ -115,7 +115,7 @@ public class ScreenCodecs  extends BaseScreen{
 	 * ScreenCodecsAdapter
 	 */
 	static class ScreenCodecsAdapter extends BaseAdapter {
-		private static final ArrayList<ScreenCodecsItem> sScreenCodecsItems = new ArrayList<ScreenCodecsItem>();
+		private static final ArrayList<ScreenCodecsItem> sScreenCodecsItems = new ArrayList<>();
 		
 		static{
 	        // Audio Codecs

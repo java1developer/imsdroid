@@ -28,18 +28,18 @@ public enum tmedia_mode_t {
   }
 
   @SuppressWarnings("unused")
-  private tmedia_mode_t() {
+  tmedia_mode_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_mode_t(int swigValue) {
+  tmedia_mode_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_mode_t(tmedia_mode_t swigEnum) {
+  tmedia_mode_t(tmedia_mode_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

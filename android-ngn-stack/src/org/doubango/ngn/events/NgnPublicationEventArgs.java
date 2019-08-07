@@ -22,12 +22,12 @@ package org.doubango.ngn.events;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NgnPublicationEventArgs extends NgnEventArgs{
+public class NgnPublicationEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnPublicationEventArgs.class.getCanonicalName();
 	
 	public static final String ACTION_PUBLICATION_EVENT = TAG + ".ACTION_PUBLICATION_EVENT";
 	
-	public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED;
+	public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED;
 	
 	private long mSessionId;
 	private NgnPublicationEventTypes mType;

@@ -38,7 +38,6 @@ import org.doubango.ngn.utils.NgnNetworkConnection;
 import org.doubango.ngn.utils.NgnConfigurationEntry;
 import org.doubango.ngn.utils.NgnObservableList;
 import org.doubango.ngn.utils.NgnStringUtils;
-import org.doubango.tinyWRAP.SipStack;
 
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
@@ -129,14 +128,14 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 			4
 	};
 
-	public static enum DNS_TYPE {
+	public enum DNS_TYPE {
 		DNS_1, DNS_2, DNS_3, DNS_4
 	}
 
 	public NgnNetworkService() {
 		super();
 
-		mConnections = new NgnObservableList<NgnNetworkConnection>(true);
+		mConnections = new NgnObservableList<>(true);
 	}
 
 	/**
@@ -146,7 +145,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 	@Override
 	public boolean start() {
 		Log.d(TAG, "Starting...");
-		mWifiManager = (WifiManager) NgnApplication.getContext().getSystemService(Context.WIFI_SERVICE);
+		mWifiManager = (WifiManager) NgnApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
 		if (mWifiManager == null){
 			Log.e(TAG, "WiFi manager is Null");
@@ -168,7 +167,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 					}
 				}
 			};
-			NgnApplication.getContext().registerReceiver(mNetworkWatcher, intentNetWatcher);
+			NgnApplication.getInstance().registerReceiver(mNetworkWatcher, intentNetWatcher);
 		}
 
 		if (!loadInterfaces()) {
@@ -194,7 +193,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 		}
 
 		if (mNetworkWatcher != null){
-			NgnApplication.getContext().unregisterReceiver(mNetworkWatcher);
+			NgnApplication.getInstance().unregisterReceiver(mNetworkWatcher);
 			mNetworkWatcher = null;
 		}
 		mConnections.getList().clear();
@@ -245,9 +244,8 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 		synchronized (mConnections) {
 			final List<NgnNetworkConnection> connections = mConnections.getList();
 			NgnNetworkConnection connection;
-			Iterator<NgnNetworkConnection> it = connections.iterator();
-			while (it.hasNext()) {
-				connection = it.next();
+			for (NgnNetworkConnection connection1 : connections) {
+				connection = connection1;
 				connection.setProxyCSCF(host, port);
 				connection.setTransport(transport, IPversion);
 			}
@@ -296,7 +294,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 			if (vpnConnection != null) {
 				return vpnConnection;
 			}
-			final Context context = NgnApplication.getContext();
+			final Context context = NgnApplication.getInstance();
 			final ConnectivityManager connectivityManager = NgnApplication.getConnectivityManager();
 			NetworkInfo networkInfo = null;
 			if (connectivityManager != null) {
@@ -358,9 +356,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 			Log.e(TAG, "requestCellularRouteToHost not implemented for API level " + sdkVersion);
 			return false;
 		}
-		if (sdkVersion < 21) {
-			return requestCellularRouteToHostApi8(host, IPv6);
-		}
+
 		return requestCellularRouteToHostApi21(host, IPv6);
 	}
 
@@ -380,9 +376,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 			Log.e(TAG, "bindProcessToConnection not implemented for API level " + sdkVersion);
 			return false;
 		}
-		if (sdkVersion < 21) {
-			return bindProcessToConnectionApi8(connection);
-		}
+
 		if (sdkVersion < 23) {
 			return bindProcessToConnectionApi21(connection);
 		}
@@ -425,7 +419,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 				Log.d(NgnNetworkService.TAG, "WiFi not enabled");
 			}
 		} else if (mCellularLock == null && isMobileNetwork(networkInfo)) {
-			PowerManager pm = (PowerManager) NgnApplication.getContext().getSystemService(Context.POWER_SERVICE);
+			PowerManager pm = (PowerManager) NgnApplication.getInstance().getSystemService(Context.POWER_SERVICE);
 			mCellularLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, NgnNetworkService.TAG + "Lock_Cellular");
 			if (mCellularLock != null) {
 				mCellularLock.acquire();
@@ -567,60 +561,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 		}
 	}
 
-	@TargetApi(8)
-	private boolean requestCellularRouteToHostApi8(String host, boolean IPv6)
-	{
-		if (IPv6) {
-			Log.e(TAG, "requestCellularRouteToHost cannot be used with IPv6 address when API level is < 21");
-			return false;
-		}
-		final ConnectivityManager connectivityManager = NgnApplication.getConnectivityManager();
-		if (connectivityManager == null) {
-			Log.e(TAG, "Failed to retrieve a connection manager");
-			return false;
-		}
 
-		// Check mobile connection status
-		NetworkInfo.State state = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_HIPRI).getState();
-		Log.d(TAG, "TYPE_MOBILE_HIPRI network state: " + state);
-		if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
-			Log.d(TAG, "TYPE_MOBILE_HIPRI network connected or connecting");
-		}
-
-		// Activate the mobile connection if not already and do nothing if already done
-		int resultInt = connectivityManager.startUsingNetworkFeature(ConnectivityManager.TYPE_MOBILE, "enableHIPRI");
-		Log.d(TAG, "startUsingNetworkFeature(TYPE_MOBILE, enableHIPRI) returned " + resultInt);
-		if ( resultInt == -1) {
-			Log.e(TAG, "startUsingNetworkFeature(TYPE_MOBILE, enableHIPRI) failed");
-			return false;
-		}
-		if (resultInt == 0) {
-			Log.d(TAG, "Mobile data already activated for all hosts");
-			return true;
-		}
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try  {
-					for (int counter=0; counter<10; counter++) {
-						NetworkInfo.State checkState = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE_HIPRI).getState();
-						if (checkState == NetworkInfo.State.CONNECTED) {
-							Log.d(TAG, "requestCellularRouteToHostApi8: Cellular network is available");
-							broadcastNetworkEvent(new NgnNetworkEventArgs(NgnNetworkEventTypes.CELLULAR_AVAILABLE));
-							return;
-						}
-						Thread.sleep(500);
-					}
-					Log.w(TAG, "TYPE_MOBILE_HIPRI: State never goes to CONNECTED");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-
-		return true;
-	}
 
 	@TargetApi(21)
 	private boolean requestCellularRouteToHostApi21(String host, boolean IPv6)
@@ -657,42 +598,20 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 		final Network[] network = connectivityManager.getAllNetworks();
 		if (network != null && network.length > 0){
 			final String name = connection.getName();
-			for (int i = 0 ; i < network.length ; i++){
-				LinkProperties prop = connectivityManager.getLinkProperties(network[i]);
+			for (Network network1 : network) {
+				LinkProperties prop = connectivityManager.getLinkProperties(network1);
 				try {
 					final NetworkInterface iface = NetworkInterface.getByName(prop.getInterfaceName());
 					if (name.equals(iface.getName())) {
-						return network[i];
+						return network1;
 					}
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					Log.e(TAG, e.toString());
 				}
 			}
 		}
 		return null;
-	}
-
-	@TargetApi(8)
-	private boolean bindProcessToConnectionApi8(final NgnNetworkConnection connection)
-	{
-		if (connection == null) {
-			return true;
-		}
-		final String proxyHost = connection.getProxyHost();
-		final int hostAddressInt = hostnameToInt(proxyHost);
-		if (hostAddressInt == 0) {
-			Log.e(TAG, "hostnameIPv4ToInt("+proxyHost+") failed");
-			return false;
-		}
-		final ConnectivityManager connectivityManager = NgnApplication.getConnectivityManager();
-		if (connectivityManager == null) {
-			Log.e(TAG, "Failed to retrieve a connection manager");
-			return false;
-		}
-
-		return connectivityManager.requestRouteToHost(ConnectivityManager.TYPE_MOBILE_HIPRI, hostAddressInt);
 	}
 
 	@TargetApi(21)
@@ -708,7 +627,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 			Log.e(TAG, "Failed to retrieve a connection manager");
 			return false;
 		}
-		return connectivityManager.setProcessDefaultNetwork(network);
+		return ConnectivityManager.setProcessDefaultNetwork(network);
 	}
 
 	@TargetApi(23)
@@ -731,7 +650,7 @@ public class NgnNetworkService  extends NgnBaseService implements INgnNetworkSer
 		final Intent intent = new Intent(
 				NgnNetworkEventArgs.ACTION_NETWORK_EVENT);
 		intent.putExtra(NgnNetworkEventArgs.EXTRA_EMBEDDED, args);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private static int hostnameToInt(String hostname) {

@@ -111,7 +111,7 @@ import android.content.Context;
  * 				
  * 				// Registration Event
  * 				if(NgnRegistrationEventArgs.ACTION_REGISTRATION_EVENT.equals(action)){
- * 					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnEventArgs.EXTRA_EMBEDDED);
+ * 					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnBaseEventArgs.EXTRA_EMBEDDED);
  * 					if(args == null){
  * 						Log.e(TAG, "Invalid event args");
  * 						return;
@@ -154,7 +154,7 @@ import android.content.Context;
  * 			InviteState state;
  * 			final String action = intent.getAction();
  * 			if(NgnInviteEventArgs.ACTION_INVITE_EVENT.equals(action)){
- * 				NgnInviteEventArgs args = intent.getParcelableExtra(NgnEventArgs.EXTRA_EMBEDDED);
+ * 				NgnInviteEventArgs args = intent.getParcelableExtra(NgnBaseEventArgs.EXTRA_EMBEDDED);
  * 				if(args == null){
  * 					Log.e(TAG, "Invalid event args");
  * 					return;

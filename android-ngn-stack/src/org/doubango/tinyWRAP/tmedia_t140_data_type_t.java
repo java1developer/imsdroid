@@ -40,18 +40,18 @@ public enum tmedia_t140_data_type_t {
   }
 
   @SuppressWarnings("unused")
-  private tmedia_t140_data_type_t() {
+  tmedia_t140_data_type_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_t140_data_type_t(int swigValue) {
+  tmedia_t140_data_type_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_t140_data_type_t(tmedia_t140_data_type_t swigEnum) {
+  tmedia_t140_data_type_t(tmedia_t140_data_type_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

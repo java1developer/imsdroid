@@ -42,7 +42,7 @@ public class NgnMessagingSession extends NgnSipSession {
 	private final MessagingSession mSession;
 	private static int SMS_MR = 0;
 	
-	private final static NgnObservableHashMap<Long, NgnMessagingSession> sSessions = new NgnObservableHashMap<Long, NgnMessagingSession>(true);
+	private final static NgnObservableHashMap<Long, NgnMessagingSession> sSessions = new NgnObservableHashMap<>(true);
 	
 	public static NgnMessagingSession takeIncomingSession(NgnSipStack sipStack, MessagingSession session, SipMessage sipMessage){
 		final String toUri = sipMessage==null ? null: sipMessage.getSipHeaderValue("f");

@@ -28,18 +28,18 @@ public enum CpuFeatures_t {
   }
 
   @SuppressWarnings("unused")
-  private CpuFeatures_t() {
+  CpuFeatures_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private CpuFeatures_t(int swigValue) {
+  CpuFeatures_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private CpuFeatures_t(CpuFeatures_t swigEnum) {
+  CpuFeatures_t(CpuFeatures_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

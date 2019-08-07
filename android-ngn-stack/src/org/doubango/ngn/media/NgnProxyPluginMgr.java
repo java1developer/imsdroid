@@ -44,7 +44,7 @@ public class NgnProxyPluginMgr {
 	private static final String TAG = NgnProxyPluginMgr.class.getCanonicalName();
 	private static final MyProxyPluginMgrCallback sMyProxyPluginMgrCallback  = new MyProxyPluginMgrCallback();
 	private static final ProxyPluginMgr sPluginMgr = ProxyPluginMgr.createInstance(sMyProxyPluginMgrCallback);
-	private static final Hashtable<BigInteger, NgnProxyPlugin>sPlugins = new Hashtable<BigInteger, NgnProxyPlugin>(); // HashTable is synchronized
+	private static final Hashtable<BigInteger, NgnProxyPlugin>sPlugins = new Hashtable<>(); // HashTable is synchronized
 	
 	public static void Initialize() {
 		// use openGL-ES 2.0 shaders for chroma conversion (YUV420P -> RGBA)

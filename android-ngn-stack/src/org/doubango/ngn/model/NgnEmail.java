@@ -21,7 +21,7 @@ package org.doubango.ngn.model;
 
 
 public class NgnEmail {
-	public static enum EmailType{
+	public enum EmailType{
 		None
 	}
 	

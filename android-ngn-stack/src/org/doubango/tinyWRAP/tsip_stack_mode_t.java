@@ -29,18 +29,18 @@ public enum tsip_stack_mode_t {
   }
 
   @SuppressWarnings("unused")
-  private tsip_stack_mode_t() {
+  tsip_stack_mode_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tsip_stack_mode_t(int swigValue) {
+  tsip_stack_mode_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tsip_stack_mode_t(tsip_stack_mode_t swigEnum) {
+  tsip_stack_mode_t(tsip_stack_mode_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

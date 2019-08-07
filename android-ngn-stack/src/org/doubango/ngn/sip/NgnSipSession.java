@@ -27,6 +27,8 @@ import org.doubango.tinyWRAP.SipUri;
 
 import android.util.Log;
 
+import java.util.Objects;
+
 /**
  * Abstract class defining a SIP Session (Registration, Subscription, Publication, Call, ...)
  */
@@ -295,7 +297,7 @@ public abstract class NgnSipSession extends NgnObservableObject implements Compa
     }
 
     public void setSigCompId(String compId){
-		if(compId != null && mCompId != compId){
+		if(compId != null && !Objects.equals(mCompId, compId)){
 			getSession().removeSigCompCompartment();
 		}
 		if((mCompId = compId) != null){

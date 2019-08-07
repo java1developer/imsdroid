@@ -38,7 +38,7 @@ public class NgnStorageService  extends NgnBaseService implements INgnStorageSer
 	private final String mContentShareDir;
 	
 	public NgnStorageService(){
-		mCurrentDir = String.format("/data/data/%s", NgnApplication.getContext().getPackageName());
+		mCurrentDir = String.format("/data/data/%s", NgnApplication.getInstance().getPackageName());
 		mContentShareDir = "/sdcard/wiPhone";
 	}
 	

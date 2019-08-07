@@ -136,7 +136,7 @@ public class NgnSoundService extends NgnBaseService implements INgnSoundService{
 	public void startRingTone() {
 		if(mRingtonePlayer == null){
 			try{
-				mRingtonePlayer = RingtoneManager.getRingtone(NgnApplication.getContext(), android.provider.Settings.System.DEFAULT_RINGTONE_URI);
+				mRingtonePlayer = RingtoneManager.getRingtone(NgnApplication.getInstance(), android.provider.Settings.System.DEFAULT_RINGTONE_URI);
 			}catch(Exception e){
 				e.printStackTrace();
 				return;

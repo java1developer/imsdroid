@@ -51,7 +51,7 @@ public class NgnHistorySMSEvent extends NgnHistoryEvent{
 	}
 	
 	public static class HistoryEventSMSIntelligentFilter implements NgnPredicate<NgnHistoryEvent>{
-		private final List<String> mRemoteParties = new ArrayList<String>();
+		private final List<String> mRemoteParties = new ArrayList<>();
 		
 		protected void reset(){
 			mRemoteParties.clear();

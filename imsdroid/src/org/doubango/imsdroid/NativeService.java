@@ -20,9 +20,8 @@
 package org.doubango.imsdroid;
 
 import org.doubango.imsdroid.Screens.ScreenAV;
-import org.doubango.ngn.NgnApplication;
 import org.doubango.ngn.NgnNativeService;
-import org.doubango.ngn.events.NgnEventArgs;
+import org.doubango.ngn.events.NgnBaseEventArgs;
 import org.doubango.ngn.events.NgnInviteEventArgs;
 import org.doubango.ngn.events.NgnMessagingEventArgs;
 import org.doubango.ngn.events.NgnMsrpEventArgs;
@@ -126,7 +125,7 @@ public class NativeService extends NgnNativeService {
 				
 				// Registration Events
 				if(NgnRegistrationEventArgs.ACTION_REGISTRATION_EVENT.equals(action)){
-					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnEventArgs.EXTRA_EMBEDDED);
+					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnBaseEventArgs.EXTRA_EMBEDDED);
 					final NgnRegistrationEventTypes type;
 					if(args == null){
 						Log.e(TAG, "Invalid event args");
@@ -203,7 +202,7 @@ public class NativeService extends NgnNativeService {
 				
 				// Invite Events
 				else if(NgnInviteEventArgs.ACTION_INVITE_EVENT.equals(action)){
-					NgnInviteEventArgs args = intent.getParcelableExtra(NgnEventArgs.EXTRA_EMBEDDED);
+					NgnInviteEventArgs args = intent.getParcelableExtra(NgnBaseEventArgs.EXTRA_EMBEDDED);
 					if(args == null){
 						Log.e(TAG, "Invalid event args");
 						return;

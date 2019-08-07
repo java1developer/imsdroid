@@ -25,7 +25,7 @@ import java.util.List;
 
 public class NgnListUtils {
 	public static <T> List<T> filter(Collection<T>list, NgnPredicate<T> predicate) {
-		List<T> result = new ArrayList<T>();
+		List<T> result = new ArrayList<>();
 		if(list != null){
 		    for (T element: list) {
 		        if (predicate.apply(element)) {

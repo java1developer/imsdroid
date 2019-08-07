@@ -58,18 +58,18 @@ public enum tdav_codec_id_t {
   }
 
   @SuppressWarnings("unused")
-  private tdav_codec_id_t() {
+  tdav_codec_id_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tdav_codec_id_t(int swigValue) {
+  tdav_codec_id_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tdav_codec_id_t(tdav_codec_id_t swigEnum) {
+  tdav_codec_id_t(tdav_codec_id_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

@@ -52,7 +52,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public abstract class BaseScreen extends Activity implements IBaseScreen {
 	private static final String TAG = BaseScreen.class.getCanonicalName();
-	public static enum SCREEN_TYPE {
+	public enum SCREEN_TYPE {
 		// Well-Known
 		ABOUT_T,
 		AV_QUEUE_T,
@@ -91,8 +91,7 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 	protected final SCREEN_TYPE mType;
 	protected boolean mComputeConfiguration;
 	protected ProgressDialog mProgressDialog;
-	protected Handler mHanler;
-	
+
 	protected final IScreenService mScreenService;
 
 	protected BaseScreen(SCREEN_TYPE type, String id) {
@@ -104,13 +103,6 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 
 	protected Engine getEngine(){
 		return (Engine)Engine.getInstance();
-	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		mHanler = new Handler();
 	}
 
 	@Override
@@ -244,24 +236,6 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 		}
 	}
 
-	protected void cancelInProgressOnUiThread() {
-		mHanler.post(new Runnable() {
-			@Override
-			public void run() {
-				cancelInProgress();
-			}
-		});
-	}
-
-	protected void showInProgressOnUiThread(final String text,
-			final boolean bIndeterminate, final boolean bCancelable) {
-		mHanler.post(new Runnable() {
-			@Override
-			public void run() {
-				showInProgress(text, bIndeterminate, bCancelable);
-			}
-		});
-	}
 
 	protected void showMsgBox(String title, String message) {
 		final AlertDialog dialog = CustomDialog.create(this, R.drawable.icon, title, message, "OK",
@@ -271,15 +245,6 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 					}
 				}, null, null);
 		dialog.show();
-	}
-
-	protected void showMsgBoxOnUiThread(final String title, final String message) {
-		mHanler.post(new Runnable() {
-			@Override
-			public void run() {
-				showMsgBox(title, message);
-			}
-		});
 	}
 
     protected String getPath(Uri uri) {
@@ -305,9 +270,7 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 			if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0
 					&& currentScreen.getType() != SCREEN_TYPE.HOME_T) {
 				if (currentScreen.hasBack()) {
-					if (!currentScreen.back()) {
-						return false;
-					}
+					return currentScreen.back();
 				} else {
 					screenService.back();
 				}
@@ -316,26 +279,20 @@ public abstract class BaseScreen extends Activity implements IBaseScreen {
 			else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP){
 				if(currentScreen.getType() == SCREEN_TYPE.AV_T){
 					Log.d(TAG, "intercepting volume changed event");
-					if(((ScreenAV)currentScreen).onVolumeChanged((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN))){
-						return true;
-					}
+					return ((ScreenAV) currentScreen).onVolumeChanged((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN));
 				}
 			}
 			else if (keyCode == KeyEvent.KEYCODE_MENU
 					&& event.getRepeatCount() == 0) {
-				if (currentScreen instanceof Activity
-						&& currentScreen.hasMenu()) {
-					return false;
-					// return ((Activity)currentScreen).onKeyDown(keyCode,
-					// event);
-				}
-				/*
+				// return ((Activity)currentScreen).onKeyDown(keyCode,
+				// event);
+				return !(currentScreen instanceof Activity)
+						|| !currentScreen.hasMenu();/*
 				 * if(!currentScreen.hasMenu()){
 				 * screenService.show(ScreenHome.class); return true; } else
 				 * if(currentScreen instanceof Activity){ return
 				 * ((Activity)currentScreen).onKeyDown(keyCode, event); }
 				 */
-				return true;
 			}
 		}
 		return false;

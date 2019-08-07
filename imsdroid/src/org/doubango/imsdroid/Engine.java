@@ -21,7 +21,6 @@ package org.doubango.imsdroid;
 
 import org.doubango.imsdroid.Services.IScreenService;
 import org.doubango.imsdroid.Services.Impl.ScreenService;
-import org.doubango.ngn.NgnApplication;
 import org.doubango.ngn.NgnEngine;
 import org.doubango.ngn.NgnNativeService;
 import org.doubango.ngn.media.NgnMediaType;

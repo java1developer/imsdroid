@@ -22,7 +22,7 @@ package org.doubango.imsdroid.Screens;
 import org.doubango.imsdroid.CustomDialog;
 import org.doubango.imsdroid.Main;
 import org.doubango.imsdroid.R;
-import org.doubango.ngn.events.NgnEventArgs;
+import org.doubango.ngn.events.NgnBaseEventArgs;
 import org.doubango.ngn.events.NgnRegistrationEventArgs;
 import org.doubango.ngn.services.INgnSipService;
 import org.doubango.ngn.sip.NgnSipSession.ConnectionState;
@@ -124,7 +124,7 @@ public class ScreenHome extends BaseScreen {
 				
 				// Registration Event
 				if(NgnRegistrationEventArgs.ACTION_REGISTRATION_EVENT.equals(action)){
-					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnEventArgs.EXTRA_EMBEDDED);
+					NgnRegistrationEventArgs args = intent.getParcelableExtra(NgnBaseEventArgs.EXTRA_EMBEDDED);
 					if(args == null){
 						Log.e(TAG, "Invalid event args");
 						return;

@@ -24,7 +24,7 @@ import org.doubango.ngn.sip.NgnSubscriptionSession.EventPackageType;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NgnSubscriptionEventArgs extends NgnEventArgs{
+public class NgnSubscriptionEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnSubscriptionEventArgs.class.getCanonicalName();
 	
 	public static final String ACTION_SUBSCRIBTION_EVENT = TAG + ".ACTION_SUBSCRIBTION_EVENT";
@@ -37,12 +37,12 @@ public class NgnSubscriptionEventArgs extends NgnEventArgs{
     private String mContentType;
     private EventPackageType mEventPackage;
 
-    public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED;
+    public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED;
     public final String EXTRA_CONTENTYPE_TYPE = "ContentTypeType";
     public final String EXTRA_CONTENTYPE_START = "ContentTypeStart";
     public final String EXTRA_CONTENTYPE_BOUNDARY = "ContentTypeBoundary";
 	
-	public NgnSubscriptionEventArgs(long sessionId, NgnSubscriptionEventTypes type, short sipCode, String phrase, 
+	public NgnSubscriptionEventArgs(long sessionId, NgnSubscriptionEventTypes type, short sipCode, String phrase,
 			byte[] content, String contentType, EventPackageType eventPackage){
 		super();
 		mSessionId = sessionId;

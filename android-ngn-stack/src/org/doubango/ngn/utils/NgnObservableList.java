@@ -31,7 +31,7 @@ public class NgnObservableList<T> extends NgnObservableObject implements Observe
 
 	public NgnObservableList(boolean watchValueChanged){
 		super();
-		mList = new ArrayList<T>();
+		mList = new ArrayList<>();
 		if((mWatchValueChanged = watchValueChanged)){
 
 		}

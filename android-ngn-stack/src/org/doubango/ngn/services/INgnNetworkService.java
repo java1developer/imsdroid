@@ -19,7 +19,6 @@
 */
 package org.doubango.ngn.services;
 
-import org.doubango.ngn.model.NgnAccessPoint;
 import org.doubango.ngn.services.impl.NgnNetworkService.DNS_TYPE;
 import org.doubango.ngn.utils.NgnNetworkConnection;
 import org.doubango.ngn.utils.NgnObservableList;

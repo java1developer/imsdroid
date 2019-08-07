@@ -334,7 +334,7 @@ public class ScreenTabContacts extends BaseScreen {
 		
 		public void addContact(NgnContact contact){
 			if(mContacts == null){
-				mContacts = new ArrayList<NgnContact>();
+				mContacts = new ArrayList<>();
 			}
 			mContacts.add(contact);
 		}

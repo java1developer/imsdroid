@@ -35,18 +35,18 @@ public enum twrap_media_type_t {
   }
 
   @SuppressWarnings("unused")
-  private twrap_media_type_t() {
+  twrap_media_type_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private twrap_media_type_t(int swigValue) {
+  twrap_media_type_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private twrap_media_type_t(twrap_media_type_t swigEnum) {
+  twrap_media_type_t(twrap_media_type_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

@@ -3,7 +3,7 @@ package org.doubango.ngn.events;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NgnNetworkEventArgs extends NgnEventArgs {
+public class NgnNetworkEventArgs extends NgnBaseEventArgs {
     private final static String TAG = NgnNetworkEventArgs.class.getCanonicalName();
 
     public static final String ACTION_NETWORK_EVENT = TAG + ".ACTION_NETWORK_EVENT";

@@ -22,7 +22,6 @@ package org.doubango.imsdroid.Screens;
 import org.doubango.imsdroid.Engine;
 import org.doubango.imsdroid.NativeService;
 import org.doubango.imsdroid.R;
-import org.doubango.ngn.NgnApplication;
 import org.doubango.ngn.utils.NgnConfigurationEntry;
 
 import android.content.BroadcastReceiver;

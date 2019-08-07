@@ -69,7 +69,7 @@ public class ScreenFileTransferQueue extends BaseScreen{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				final NgnMsrpSession session = (NgnMsrpSession)mAdapter.getItem(position);
 				if(session != null){
-					if(mScreenService.show(ScreenFileTransferView.class, new Long(session.getId()).toString())){
+					if(mScreenService.show(ScreenFileTransferView.class, Long.valueOf(session.getId()).toString())){
 						mScreenService.destroy(getId());
 					}
 				}

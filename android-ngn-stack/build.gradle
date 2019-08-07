@@ -8,7 +8,7 @@ buildscript {
         maven { url 'https://maven.google.com' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.android.tools.build:gradle:3.4.2'
     }
 }
 allprojects {
@@ -21,16 +21,19 @@ allprojects {
 }
 
 dependencies {
-    compile fileTree(include: '*.jar', dir: 'libs')
+    implementation fileTree(include: '*.jar', dir: 'libs')
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+
 }
 
 android {
-   compileSdkVersion 23
-   buildToolsVersion "28.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 11
+        minSdkVersion 23
+        targetSdkVersion 29
 
         /*externalNativeBuild {
             cmake {

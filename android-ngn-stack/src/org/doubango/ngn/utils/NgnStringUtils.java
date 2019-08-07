@@ -59,7 +59,7 @@ public class NgnStringUtils {
 			}
 		}
 		else{
-			return ((s1 == null && s2 == null)? true : false);
+			return (s1 == null && s2 == null);
 		}
 	}
 	
@@ -116,11 +116,11 @@ public class NgnStringUtils {
 					sMD5Digest.reset();
 					bigInt = new BigInteger(1, sMD5Digest.digest(str.getBytes("UTF-8")));
 				}
-				String hash = bigInt.toString(16);
+				StringBuilder hash = new StringBuilder(bigInt.toString(16));
 				while(hash.length() < 32 ){
-					hash = "0" + hash;
+					hash.insert(0, "0");
 				}
-				return hash;
+				return hash.toString();
 			}
 			catch(Exception e){
 				e.printStackTrace();

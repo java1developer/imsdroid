@@ -27,18 +27,18 @@ public enum tmedia_profile_t {
   }
 
   @SuppressWarnings("unused")
-  private tmedia_profile_t() {
+  tmedia_profile_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_profile_t(int swigValue) {
+  tmedia_profile_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_profile_t(tmedia_profile_t swigEnum) {
+  tmedia_profile_t(tmedia_profile_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

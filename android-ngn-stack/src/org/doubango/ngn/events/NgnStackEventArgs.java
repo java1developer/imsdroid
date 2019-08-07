@@ -24,7 +24,7 @@ import android.os.Parcel;
 /**
  * Event argument associated to the stack
  */
-public class NgnStackEventArgs extends NgnEventArgs{
+public class NgnStackEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnStackEventArgs.class.getCanonicalName();
 	
 	private final NgnStackEventTypes mType;
@@ -32,7 +32,7 @@ public class NgnStackEventArgs extends NgnEventArgs{
 
     public static final String ACTION_STACK_EVENT = TAG + ".ACTION_STACK_EVENT";
     
-    public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED;
+    public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED;
     
     public NgnStackEventArgs(NgnStackEventTypes type, String phrase){
     	super();

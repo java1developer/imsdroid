@@ -85,7 +85,7 @@ public class NgnMsrpSession extends NgnInviteSession {
 	
 	private final NgnHistoryMsrpEvent mHistoryEvent;
 
-	private final static NgnObservableHashMap<Long, NgnMsrpSession> sSessions = new NgnObservableHashMap<Long, NgnMsrpSession>(
+	private final static NgnObservableHashMap<Long, NgnMsrpSession> sSessions = new NgnObservableHashMap<>(
 			true);
 	
 	public final static NgnObservableHashMap<Long, NgnMsrpSession> getSessions(){
@@ -450,7 +450,7 @@ public class NgnMsrpSession extends NgnInviteSession {
 			return ret;
 		} else {
 			if (mPendingMessages == null) {
-				mPendingMessages = new ArrayList<PendingMessage>();
+				mPendingMessages = new ArrayList<>();
 			}
 			mPendingMessages.add(new PendingMessage(message, contentType,
 					wContentType));
@@ -540,7 +540,7 @@ public class NgnMsrpSession extends NgnInviteSession {
 		NgnMsrpCallback(NgnMsrpSession session) {
 			super();
 			mSession = session;
-			mAppContext = NgnApplication.getContext();
+			mAppContext = NgnApplication.getInstance();
 			mSessionId = -1;
 		}
 		

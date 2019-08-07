@@ -2,6 +2,8 @@ package org.doubango.ngn.utils;
 
 import android.util.Log;
 
+import java.util.Objects;
+
 public class NgnNetworkConnection  extends NgnObservableObject implements Comparable<NgnNetworkConnection> {
     private static final String TAG = NgnNetworkConnection.class.getCanonicalName();
     private boolean mUp;
@@ -75,7 +77,7 @@ public class NgnNetworkConnection  extends NgnObservableObject implements Compar
 
     public boolean setTransport(String transport, String IPversion)
     {
-        if (mTransport != transport || mIPversion != IPversion) {
+        if (!Objects.equals(mTransport, transport) || !Objects.equals(mIPversion, IPversion)) {
             mTransport = transport;
             mIPversion = IPversion;
             super.setChangedAndNotifyObservers(this);
@@ -91,7 +93,7 @@ public class NgnNetworkConnection  extends NgnObservableObject implements Compar
 
     public boolean setLocalAddress(String local_ip, int local_port)
     {
-        if (mLocalIP != local_ip) {
+        if (!Objects.equals(mLocalIP, local_ip)) {
             mLocalIP = local_ip;
             mLocalPort = local_port;
             super.setChangedAndNotifyObservers(this);
@@ -101,7 +103,7 @@ public class NgnNetworkConnection  extends NgnObservableObject implements Compar
 
     public boolean setLocalIP(String local_ip)
     {
-        if (mLocalIP != local_ip) {
+        if (!Objects.equals(mLocalIP, local_ip)) {
             mLocalIP = local_ip;
             super.setChangedAndNotifyObservers(local_ip);
         }
@@ -119,7 +121,7 @@ public class NgnNetworkConnection  extends NgnObservableObject implements Compar
 
     public boolean setProxyCSCF(String proxy_cscf_ip, int proxy_cscf_port)
     {
-        if (mProxyHost != proxy_cscf_ip || mProxyPort != proxy_cscf_port) {
+        if (!Objects.equals(mProxyHost, proxy_cscf_ip) || mProxyPort != proxy_cscf_port) {
             mProxyHost = proxy_cscf_ip;
             mProxyPort = proxy_cscf_port;
             super.setChangedAndNotifyObservers(this);
@@ -129,7 +131,7 @@ public class NgnNetworkConnection  extends NgnObservableObject implements Compar
 
     public boolean setAoR(String aor_ip, int aor_port)
     {
-        if (mAoRIP != aor_ip || mAoRPort != aor_port) {
+        if (!Objects.equals(mAoRIP, aor_ip) || mAoRPort != aor_port) {
             mAoRIP = aor_ip;
             mAoRPort = aor_port;
             super.setChangedAndNotifyObservers(this);
@@ -171,7 +173,7 @@ public class NgnNetworkConnection  extends NgnObservableObject implements Compar
         }
         @Override
         public boolean apply(NgnNetworkConnection connection) {
-            return (connection.mLocalIP == mLocalIP);
+            return (Objects.equals(connection.mLocalIP, mLocalIP));
         }
     }
     public static class NgnNetworkConnectionFilterByName implements NgnPredicate<NgnNetworkConnection> {

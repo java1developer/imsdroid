@@ -32,7 +32,7 @@ import android.widget.BaseAdapter;
 
 public abstract class SeparatedListAdapter extends BaseAdapter {
 
-	public final Map<String,Adapter> mSections = new LinkedHashMap<String,Adapter>();
+	public final Map<String,Adapter> mSections = new LinkedHashMap<>();
 	public final static int TYPE_SECTION_HEADER = 0;
 
 	public SeparatedListAdapter(Context context) {

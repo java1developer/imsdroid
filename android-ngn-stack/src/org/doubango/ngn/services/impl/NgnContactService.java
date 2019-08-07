@@ -24,6 +24,8 @@ import java.util.List;
 
 import org.doubango.ngn.NgnApplication;
 import org.doubango.ngn.NgnEngine;
+import org.doubango.ngn.PermissionManager;
+import org.doubango.ngn.events.NgnPermissionRequiredEventArgs;
 import org.doubango.ngn.model.NgnContact;
 import org.doubango.ngn.model.NgnPhoneNumber;
 import org.doubango.ngn.services.INgnContactService;
@@ -34,6 +36,7 @@ import org.doubango.ngn.utils.NgnPredicate;
 import org.doubango.ngn.utils.NgnStringUtils;
 import org.doubango.tinyWRAP.SipUri;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.database.ContentObserver;
@@ -44,9 +47,9 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.util.Log;
 
-/**@page NgnContactService_page Contact Service
+/** @page NgnContactService_page Contact Service
  * The Contact service is used to retrieve contacts from the native address book.
- * 
+ *
  */
 
 /**
@@ -66,9 +69,9 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 	private NgnCallbackFunc<String> mOnNewPhoneNumberCallback;
 	private NgnCallbackFunc<Object> mOnEndLoadCallback;
 	
-	public NgnContactService(){
+	/*public NgnContactService(){
 		super();
-	}
+	}*/
 	
 	@Override
 	public boolean start() {
@@ -97,16 +100,20 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 									load();
 								}
 							};
-							NgnApplication.getContext().getContentResolver().registerContentObserver(CommonDataKinds.Phone.CONTENT_URI, 
-									true, mLocalContactObserver);
+							if (PermissionManager.isReadContactPermissionOn()) {
+								NgnApplication.getInstance().getContentResolver().registerContentObserver(CommonDataKinds.Phone.CONTENT_URI, true, mLocalContactObserver);
+							} else {
+								NgnPermissionRequiredEventArgs.Builder builder = new NgnPermissionRequiredEventArgs.Builder();
+								PermissionManager.broadcastPermissionRequiredEvent(builder.addPermission(Manifest.permission.READ_CONTACTS).build());
+							}
 						}
 					});
 					Looper.loop();// loop() until quit() is called
 					Log.d(TAG, "Observer Looper exit()");
 				}
 			}).start();
-		};
-		
+		}
+
 		return true;
 	}
 
@@ -116,7 +123,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 		
 		try{
 			if(mLocalContactObserver != null){
-				NgnApplication.getContext().getContentResolver().unregisterContentObserver(mLocalContactObserver);
+				NgnApplication.getInstance().getContentResolver().unregisterContentObserver(mLocalContactObserver);
 				mLocalContactObserver = null;
 			}
 			if(mLocalContactObserverLooper != null){
@@ -155,7 +162,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 		boolean bOK = false;
 		Cursor managedCursor = null;
 		final Activity activity = NgnEngine.getInstance().getMainActivity();
-		final List<NgnContact> contactsCopy = new ArrayList<NgnContact>();
+		final List<NgnContact> contactsCopy = new ArrayList<>();
 		
 		if(mOnBeginLoadCallback != null){
 			mOnBeginLoadCallback.callback(this);
@@ -165,7 +172,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 			String phoneNumber, displayName, label;
 			NgnContact contact = null;
 			int id, type, photoId;
-			final Resources res = NgnApplication.getContext().getResources();
+			final Resources res = NgnApplication.getInstance().getResources();
 			
 			if(NgnApplication.getSDKVersion() >=5 && activity != null){
 				/*synchronized(mContacts)*/{
@@ -271,7 +278,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 	@Override
 	public NgnObservableList <NgnContact> getObservableContacts() {
 		if(mContacts == null){
-			mContacts = new NgnObservableList<NgnContact>(true);
+			mContacts = new NgnObservableList<>(true);
 		}
 		return mContacts;
 	}

@@ -82,11 +82,11 @@ public class ScreenGeneral  extends BaseScreen {
         mCbNR = (CheckBox)this.findViewById(R.id.screen_general_checkBox_NR);    
         
         // Audio Playback levels
-        ArrayAdapter<AudioPlayBackLevel> adapter = new ArrayAdapter<AudioPlayBackLevel>(this, android.R.layout.simple_spinner_item, ScreenGeneral.sAudioPlaybackLevels);
+        ArrayAdapter<AudioPlayBackLevel> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenGeneral.sAudioPlaybackLevels);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpAudioPlaybackLevel.setAdapter(adapter);
         // Media Profile
-        ArrayAdapter<Profile> adapterProfile = new ArrayAdapter<Profile>(this, android.R.layout.simple_spinner_item, ScreenGeneral.sProfiles);
+        ArrayAdapter<Profile> adapterProfile = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenGeneral.sProfiles);
         adapterProfile.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpProfile.setAdapter(adapterProfile);
         

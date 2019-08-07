@@ -29,6 +29,8 @@ import org.doubango.tinyWRAP.SipStack;
 
 import android.os.Build;
 
+import java.util.Objects;
+
 /**
  * SIP/IMS Stack
  */
@@ -74,7 +76,7 @@ public class NgnSipStack extends SipStack{
         super.addHeader("P-Access-Network-Info", "ADSL;utran-cell-id-3gpp=00000000");
         super.addHeader("User-Agent", String.format("IM-client/OMA1.0 android-ngn-stack/v%s (doubango r%s - %s)", 
 				NgnApplication.getVersionName(), 
-				NgnApplication.getContext().getString(R.string.doubango_revision),
+				NgnApplication.getInstance().getString(R.string.doubango_revision),
 				Build.MODEL));
 	}
 
@@ -109,7 +111,7 @@ public class NgnSipStack extends SipStack{
 	}
 	
 	public void setSigCompId(String compId){
-		if(mCompId != null && mCompId != compId){
+		if(mCompId != null && !Objects.equals(mCompId, compId)){
 			super.removeSigCompCompartment(mCompId);
 		}
 		if((mCompId = compId) != null){

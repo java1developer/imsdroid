@@ -101,19 +101,19 @@ public class ScreenQoS  extends BaseScreen {
         mSpVsize = (Spinner)findViewById(R.id.screen_qos_Spinner_vsize);
         
         // spinners
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerRefresherItems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerRefresherItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpRefresher.setAdapter(adapter);
         
-        ArrayAdapter<ScreenQoSStrength> adapterStrength = new ArrayAdapter<ScreenQoSStrength>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerPrecondStrengthItems);
+        ArrayAdapter<ScreenQoSStrength> adapterStrength = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerPrecondStrengthItems);
         adapterStrength.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpPrecondStrength.setAdapter(adapterStrength);
         
-        ArrayAdapter<ScreenQoSType> adapterType = new ArrayAdapter<ScreenQoSType>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerPrecondTypeItems);
+        ArrayAdapter<ScreenQoSType> adapterType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerPrecondTypeItems);
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpPrecondType.setAdapter(adapterType);
         
-        ArrayAdapter<ScreenQoSVsize> adapterVsize = new ArrayAdapter<ScreenQoSVsize>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerVsizeItems);
+        ArrayAdapter<ScreenQoSVsize> adapterVsize = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenQoS.sSpinnerVsizeItems);
         adapterVsize.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpVsize.setAdapter(adapterVsize);
         

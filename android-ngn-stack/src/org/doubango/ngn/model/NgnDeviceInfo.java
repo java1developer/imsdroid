@@ -29,9 +29,9 @@ public class NgnDeviceInfo {
 	public enum Orientation {
 		PORTRAIT,
 		LANDSCAPE
-	};
-	
-	public NgnDeviceInfo(String lang, String country, Date date, Orientation orientation){
+	}
+
+    public NgnDeviceInfo(String lang, String country, Date date, Orientation orientation){
 		mLang = lang;
 		mCountry = country;
 		mDate = date;

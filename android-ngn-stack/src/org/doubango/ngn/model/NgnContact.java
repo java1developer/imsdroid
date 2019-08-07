@@ -63,7 +63,7 @@ public class NgnContact extends NgnObservableObject{
 		super();
 		mId = id;
 		mDisplayName = displayName;
-		mPhoneNumbers = new ArrayList<NgnPhoneNumber>();
+		mPhoneNumbers = new ArrayList<>();
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class NgnContact extends NgnObservableObject{
 		// For performance reasons we only query for emails if requested
 		final Activity activity = NgnEngine.getInstance().getMainActivity();
 		if(mEmails == null && activity != null){
-			mEmails = new ArrayList<NgnEmail>();
+			mEmails = new ArrayList<>();
 			Cursor emailCursor = activity.managedQuery( 
 	                ContactsContract.CommonDataKinds.Email.CONTENT_URI, 
 	                null,

@@ -43,7 +43,7 @@ public class NgnSubscriptionSession extends NgnSipSession{
 	    XcapDiff
     }
 	
-	private final static NgnObservableHashMap<Long, NgnSubscriptionSession> sSessions = new NgnObservableHashMap<Long, NgnSubscriptionSession>(
+	private final static NgnObservableHashMap<Long, NgnSubscriptionSession> sSessions = new NgnObservableHashMap<>(
 			true);
 	
 	public static NgnSubscriptionSession createOutgoingSession(NgnSipStack sipStack, String toUri, EventPackageType eventPackage) {

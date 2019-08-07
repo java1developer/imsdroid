@@ -41,7 +41,7 @@ public class ScreenTabDialer  extends BaseScreen {
 	private EditText mEtNumber;
 	private ImageButton mIbInputType;
 	
-	static enum PhoneInputType{
+	enum PhoneInputType{
 		Numbers,
 		Text
 	}
@@ -158,7 +158,7 @@ public class ScreenTabDialer  extends BaseScreen {
 			else if(tag == DialerUtils.TAG_DELETE){
 				final int selStart = mEtNumber.getSelectionStart();
 				if(selStart >0){
-					final StringBuffer sb = new StringBuffer(number);
+					final StringBuilder sb = new StringBuilder(number);
 					sb.delete(selStart-1, selStart);
 					mEtNumber.setText(sb.toString());
 					mEtNumber.setSelection(selStart-1);
@@ -199,7 +199,7 @@ public class ScreenTabDialer  extends BaseScreen {
 	
 	private void appendText(String textToAppend){
 		final int selStart = mEtNumber.getSelectionStart();
-		final StringBuffer sb = new StringBuffer(mEtNumber.getText().toString());
+		final StringBuilder sb = new StringBuilder(mEtNumber.getText().toString());
 		sb.insert(selStart, textToAppend);
 		mEtNumber.setText(sb.toString());
 		mEtNumber.setSelection(selStart+1);

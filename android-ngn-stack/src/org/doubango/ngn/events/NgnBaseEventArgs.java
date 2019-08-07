@@ -25,14 +25,15 @@ import android.os.Parcelable;
 /**
  * Base class for all events
  */
-public abstract class NgnEventArgs implements Parcelable {
-	public static final String EXTRA_EMBEDDED = "EXTRA_" + NgnEventArgs.class.getCanonicalName();
+@Deprecated //useless
+public abstract class NgnBaseEventArgs implements Parcelable {
+	public static final String EXTRA_EMBEDDED = "EXTRA_" + NgnBaseEventArgs.class.getCanonicalName();
 	
-	public NgnEventArgs(){
+	public NgnBaseEventArgs(){
 		super();
 	}
 
-	 protected NgnEventArgs(Parcel in) {
+	 protected NgnBaseEventArgs(Parcel in) {
 	      readFromParcel(in);
 	 }
 	 

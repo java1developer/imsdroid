@@ -40,18 +40,18 @@ public enum tmedia_pref_video_size_t {
   }
 
   @SuppressWarnings("unused")
-  private tmedia_pref_video_size_t() {
+  tmedia_pref_video_size_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_pref_video_size_t(int swigValue) {
+  tmedia_pref_video_size_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tmedia_pref_video_size_t(tmedia_pref_video_size_t swigEnum) {
+  tmedia_pref_video_size_t(tmedia_pref_video_size_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

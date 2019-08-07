@@ -27,18 +27,18 @@ public enum tsip_info_event_type_t {
   }
 
   @SuppressWarnings("unused")
-  private tsip_info_event_type_t() {
+  tsip_info_event_type_t() {
     this.swigValue = SwigNext.next++;
   }
 
   @SuppressWarnings("unused")
-  private tsip_info_event_type_t(int swigValue) {
+  tsip_info_event_type_t(int swigValue) {
     this.swigValue = swigValue;
     SwigNext.next = swigValue+1;
   }
 
   @SuppressWarnings("unused")
-  private tsip_info_event_type_t(tsip_info_event_type_t swigEnum) {
+  tsip_info_event_type_t(tsip_info_event_type_t swigEnum) {
     this.swigValue = swigEnum.swigValue;
     SwigNext.next = this.swigValue+1;
   }

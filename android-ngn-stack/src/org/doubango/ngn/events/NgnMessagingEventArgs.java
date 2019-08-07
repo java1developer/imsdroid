@@ -22,7 +22,7 @@ package org.doubango.ngn.events;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NgnMessagingEventArgs extends NgnEventArgs{
+public class NgnMessagingEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnMessagingEventArgs.class.getCanonicalName();
 	
 	private long mSessionId;
@@ -33,7 +33,7 @@ public class NgnMessagingEventArgs extends NgnEventArgs{
     
     public static final String ACTION_MESSAGING_EVENT = TAG + ".ACTION_MESSAGING_EVENT";
     
-    public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED; // NgnEventArgs
+    public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED; // NgnBaseEventArgs
     public static final String EXTRA_SESSION = TAG + "session"; // NgnSession
     public static final String EXTRA_CODE = TAG + "code"; // Short
     public static final String EXTRA_REMOTE_PARTY = TAG + "from"; // String

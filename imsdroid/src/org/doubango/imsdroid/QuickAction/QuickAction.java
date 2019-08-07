@@ -53,7 +53,7 @@ public class QuickAction extends CustomPopupWindow {
 	public QuickAction(View anchor) {
 		super(anchor);
 		
-		actionList	= new ArrayList<ActionItem>();
+		actionList	= new ArrayList<>();
 		context		= anchor.getContext();
 		inflater 	= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		

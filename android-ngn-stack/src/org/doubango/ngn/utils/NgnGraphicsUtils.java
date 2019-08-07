@@ -38,7 +38,7 @@ public class NgnGraphicsUtils {
 	}
 	
 	public static int getSizeInPixel(int dp){
-		final float scale = NgnApplication.getContext().getResources().getDisplayMetrics().density;
+		final float scale = NgnApplication.getInstance().getResources().getDisplayMetrics().density;
 		return (int) (dp * scale + 0.5f);
 	}
 }

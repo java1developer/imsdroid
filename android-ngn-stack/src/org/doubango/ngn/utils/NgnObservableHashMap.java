@@ -33,7 +33,7 @@ public class NgnObservableHashMap<K, V>  extends NgnObservableObject implements 
 	
 	public NgnObservableHashMap(boolean watchValueChanged){
 		super();
-		mHashMap = new HashMap<K, V>();
+		mHashMap = new HashMap<>();
 		if((mWatchValueChanged = watchValueChanged)){
 			
 		}

@@ -27,7 +27,7 @@ import android.os.Parcelable;
 /**
  * Event argument for SIP INVITE sessions
  */
-public class NgnInviteEventArgs extends NgnEventArgs{
+public class NgnInviteEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnInviteEventArgs.class.getCanonicalName();
 	
 	private long mSessionId;
@@ -37,7 +37,7 @@ public class NgnInviteEventArgs extends NgnEventArgs{
     
     public static final String ACTION_INVITE_EVENT = TAG + ".ACTION_INVITE_EVENT";
     
-    public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED; // @NgnInviteEventArgs
+    public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED; // @NgnInviteEventArgs
     public static final String EXTRA_SESSION = "session"; // @object
     public static final String EXTRA_SIPCODE = "sipCode"; // @short
     public static final String EXTRA_REFERTO_URI = "referto-uri"; //@String

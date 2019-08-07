@@ -40,7 +40,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class ScreenSecurity extends BaseScreen {
@@ -110,14 +109,14 @@ public class ScreenSecurity extends BaseScreen {
         mEtCA.setText(mConfigurationService.getString(NgnConfigurationEntry.SECURITY_TLS_CA_FILE_PATH, NgnConfigurationEntry.DEFAULT_SECURITY_TLS_CA_FILE_PATH));
         //mCbTlsSecAgree.setChecked(mConfigurationService.getBoolean(CONFIGURATION_SECTION.SECURITY, CONFIGURATION_ENTRY.TLS_SEC_AGREE, Configuration.DEFAULT_TLS_SEC_AGREE));
         
-        ArrayAdapter<ScreenSecuritySRtpMode> adapterSrtpMode = new ArrayAdapter<ScreenSecuritySRtpMode>(this, android.R.layout.simple_spinner_item, ScreenSecurity.sSpinnerSRtpModeItems);
+        ArrayAdapter<ScreenSecuritySRtpMode> adapterSrtpMode = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenSecurity.sSpinnerSRtpModeItems);
         adapterSrtpMode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpSRtpMode.setAdapter(adapterSrtpMode);
         mSpSRtpMode.setSelection(ScreenSecuritySRtpMode.getSpinnerIndex(tmedia_srtp_mode_t.valueOf(mConfigurationService.getString(
 				NgnConfigurationEntry.SECURITY_SRTP_MODE,
 				NgnConfigurationEntry.DEFAULT_SECURITY_SRTP_MODE))));
         
-        ArrayAdapter<ScreenSecuritySRtpType> adapterType = new ArrayAdapter<ScreenSecuritySRtpType>(this, android.R.layout.simple_spinner_item, ScreenSecurity.sSpinnerSRtpTypeItems);
+        ArrayAdapter<ScreenSecuritySRtpType> adapterType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ScreenSecurity.sSpinnerSRtpTypeItems);
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpSRtpType.setAdapter(adapterType);
         mSpSRtpType.setSelection(ScreenSecuritySRtpType.getSpinnerIndex(tmedia_srtp_type_t.valueOf(mConfigurationService.getString(

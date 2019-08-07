@@ -30,7 +30,6 @@ import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.util.Log;
-import android.view.SurfaceHolder;
 
 public class NgnCameraProducer {
 	private static final String TAG = NgnCameraProducer.class.getCanonicalName();

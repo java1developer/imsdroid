@@ -35,7 +35,7 @@ public class NgnHistoryList {
 	private List<NgnHistoryEvent> mSerializableEvents;
 	
     public NgnHistoryList(){
-    	mEvents = new NgnObservableList<NgnHistoryEvent>(true);
+    	mEvents = new NgnObservableList<>(true);
     	mSerializableEvents = mEvents.getList();
     }
     

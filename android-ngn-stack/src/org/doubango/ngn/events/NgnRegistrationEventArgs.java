@@ -22,7 +22,7 @@ package org.doubango.ngn.events;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class NgnRegistrationEventArgs extends NgnEventArgs {
+public class NgnRegistrationEventArgs extends NgnBaseEventArgs {
 	private final static String TAG = NgnRegistrationEventArgs.class.getCanonicalName();
 	
 	private long mSessionId;
@@ -32,7 +32,7 @@ public class NgnRegistrationEventArgs extends NgnEventArgs {
     
 	public static final String ACTION_REGISTRATION_EVENT = TAG + ".ACTION_REGISTRATION_CHANGED";
 	
-	public static final String EXTRA_EMBEDDED = NgnEventArgs.EXTRA_EMBEDDED;
+	public static final String EXTRA_EMBEDDED = NgnBaseEventArgs.EXTRA_EMBEDDED;
 	
     public NgnRegistrationEventArgs(long sessionId, NgnRegistrationEventTypes type, short sipCode, String phrase){
     	super();

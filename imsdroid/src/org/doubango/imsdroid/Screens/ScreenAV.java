@@ -23,6 +23,7 @@ package org.doubango.imsdroid.Screens;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.TimerTask;
 
 import org.doubango.imsdroid.CustomDialog;
@@ -138,7 +139,7 @@ public class ScreenAV extends BaseScreen{
 	
 	private static boolean SHOW_SIP_PHRASE = true;
 	
-	private static enum ViewType{
+	private enum ViewType{
 		ViewNone,
 		ViewTrying,
 		ViewInCall,
@@ -230,7 +231,7 @@ public class ScreenAV extends BaseScreen{
 								(orient > 255 && orient < 285)){
 							int rotation = mAVSession.compensCamRotation(true);
 							if (rotation != mLastRotation) {
-								Log.d(ScreenAV.TAG,"Received Screen Orientation Change setRotation["+ String.valueOf(rotation)+ "]");						
+								Log.d(ScreenAV.TAG,"Received Screen Orientation Change setRotation["+ rotation + "]");
 								applyCamRotation(rotation);
 								if(mSendDeviceInfo && mAVSession != null){
 									final android.content.res.Configuration conf = getResources().getConfiguration();
@@ -1165,7 +1166,7 @@ public class ScreenAV extends BaseScreen{
 	private final TimerTask mTimerTaskBlankPacket = new TimerTask(){
 		@Override
 		public void run() {	
-			Log.d(TAG,"Resending Blank Packet " +String.valueOf(mCountBlankPacket));
+			Log.d(TAG,"Resending Blank Packet " + mCountBlankPacket);
 			if (mCountBlankPacket < 3) {
 				if (mAVSession != null) {
 					mAVSession.pushBlankPacket();
@@ -1192,7 +1193,7 @@ public class ScreenAV extends BaseScreen{
 			ScreenAV.this.runOnUiThread(new Runnable() {
 				public void run() {
 					IBaseScreen currentScreen = mScreenService.getCurrentScreen();
-					boolean gotoHome = (currentScreen != null && currentScreen.getId() == getId());
+					boolean gotoHome = (currentScreen != null && Objects.equals(currentScreen.getId(), getId()));
 					if(gotoHome){
 						mScreenService.show(ScreenHome.class);
 					}

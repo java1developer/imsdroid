@@ -72,10 +72,10 @@ public class ScreenNetwork extends BaseScreen {
         mRbIPv6 = (RadioButton)findViewById(R.id.screen_network_radioButton_ipv6);
         
         // spinners
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sSpinnerTransportItems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sSpinnerTransportItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpTransport.setAdapter(adapter);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sSpinnerProxydiscoveryItems);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sSpinnerProxydiscoveryItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpProxyDiscovery.setAdapter(adapter);
         

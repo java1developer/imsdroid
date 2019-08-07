@@ -48,7 +48,6 @@ import org.doubango.ngn.sip.NgnMsrpSession;
 import org.doubango.ngn.sip.NgnPresenceStatus;
 import org.doubango.ngn.sip.NgnPublicationSession;
 import org.doubango.ngn.sip.NgnRegistrationSession;
-import org.doubango.ngn.sip.NgnSipPrefrences;
 import org.doubango.ngn.sip.NgnSipSession;
 import org.doubango.ngn.sip.NgnSipStack;
 import org.doubango.ngn.sip.NgnSubscriptionSession;
@@ -83,7 +82,6 @@ import org.doubango.tinyWRAP.StackEvent;
 import org.doubango.tinyWRAP.SubscriptionEvent;
 import org.doubango.tinyWRAP.SubscriptionSession;
 import org.doubango.tinyWRAP.tinyWRAPConstants;
-import org.doubango.tinyWRAP.tsip_event_type_t;
 import org.doubango.tinyWRAP.tsip_invite_event_type_t;
 import org.doubango.tinyWRAP.tsip_message_event_type_t;
 import org.doubango.tinyWRAP.tsip_options_event_type_t;
@@ -144,7 +142,7 @@ public class NgnSipService extends NgnBaseService implements INgnSipService,
 			};
 			IntentFilter intentFilter = new IntentFilter();
 			intentFilter.addAction(NgnNetworkEventArgs.ACTION_NETWORK_EVENT);
-			NgnApplication.getContext().registerReceiver(mBroadCastRecv, intentFilter);
+			NgnApplication.getInstance().registerReceiver(mBroadCastRecv, intentFilter);
 		}
 		return true;
 	}
@@ -160,7 +158,7 @@ public class NgnSipService extends NgnBaseService implements INgnSipService,
 			}
 		}
 		if (mBroadCastRecv != null) {
-			NgnApplication.getContext().unregisterReceiver(mBroadCastRecv);
+			NgnApplication.getInstance().unregisterReceiver(mBroadCastRecv);
 			mBroadCastRecv = null;
 		}
 		return retBool;
@@ -543,28 +541,28 @@ public class NgnSipService extends NgnBaseService implements INgnSipService,
 		final Intent intent = new Intent(
 				NgnRegistrationEventArgs.ACTION_REGISTRATION_EVENT);
 		intent.putExtra(NgnRegistrationEventArgs.EXTRA_EMBEDDED, args);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private void broadcastInviteEvent(NgnInviteEventArgs args, short sipCode) {
 		final Intent intent = new Intent(NgnInviteEventArgs.ACTION_INVITE_EVENT);
 		intent.putExtra(NgnInviteEventArgs.EXTRA_EMBEDDED, args);
 		intent.putExtra(NgnInviteEventArgs.EXTRA_SIPCODE, sipCode);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 	
 	private void broadcastTransferRequestEvent(NgnInviteEventArgs args, String referToUri) {
 		final Intent intent = new Intent(NgnInviteEventArgs.ACTION_INVITE_EVENT);
 		intent.putExtra(NgnInviteEventArgs.EXTRA_EMBEDDED, args);
 		intent.putExtra(NgnInviteEventArgs.EXTRA_REFERTO_URI, referToUri);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private void broadcastInviteEvent(NgnInviteEventArgs args) {
 		final Intent intent = new Intent(NgnInviteEventArgs.ACTION_INVITE_EVENT);
 		intent.putExtra(NgnInviteEventArgs.EXTRA_EMBEDDED, args);
 		intent.putExtra(NgnInviteEventArgs.EXTRA_SIPCODE, 0);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private void broadcastMessagingEvent(NgnMessagingEventArgs args,
@@ -574,21 +572,21 @@ public class NgnSipService extends NgnBaseService implements INgnSipService,
 		intent.putExtra(NgnMessagingEventArgs.EXTRA_REMOTE_PARTY, remoteParty);
 		intent.putExtra(NgnMessagingEventArgs.EXTRA_DATE, date);
 		intent.putExtra(NgnMessagingEventArgs.EXTRA_EMBEDDED, args);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private void broadcastPublicationEvent(NgnPublicationEventArgs args) {
 		final Intent intent = new Intent(
 				NgnPublicationEventArgs.ACTION_PUBLICATION_EVENT);
 		intent.putExtra(NgnPublicationEventArgs.EXTRA_EMBEDDED, args);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private void broadcastSubscriptionEvent(NgnSubscriptionEventArgs args) {
 		final Intent intent = new Intent(
 				NgnSubscriptionEventArgs.ACTION_SUBSCRIBTION_EVENT);
 		intent.putExtra(NgnSubscriptionEventArgs.EXTRA_EMBEDDED, args);
-		NgnApplication.getContext().sendBroadcast(intent);
+		NgnApplication.getInstance().sendBroadcast(intent);
 	}
 
 	private void handleNetworkEvent(Intent intent) {
