@@ -1,4 +1,4 @@
-package org.doubango.ngn;
+package org.doubango.ngn.permission;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,14 +6,14 @@ import android.content.pm.PackageManager;
 
 import androidx.core.content.ContextCompat;
 
+import org.doubango.ngn.NgnApplication;
 import org.doubango.ngn.events.NgnPermissionRequiredEventArgs;
-import org.doubango.ngn.events.NgnPublicationEventArgs;
 
 /**
  * Created by Dmitry Ovsiannikov on 8/7/19.
  */
-public class PermissionManager {
-    private static final String ACTION_PERMISSION_EVENT = PermissionManager.class.getName();
+public class NgnPermissionManager {
+    private static final String ACTION_PERMISSION_EVENT = NgnPermissionManager.class.getName();
     private static final String KEY_PERMISSION_REQUIRED_DATA = "KEY_PERMISSION_REQUIRED_DATA";
 
     public static boolean isReadContactPermissionOn() {
@@ -25,4 +25,6 @@ public class PermissionManager {
         intent.putExtra(KEY_PERMISSION_REQUIRED_DATA, args);
         NgnApplication.getInstance().sendBroadcast(intent);
     }
+
+    
 }

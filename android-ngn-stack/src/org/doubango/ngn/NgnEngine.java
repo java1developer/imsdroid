@@ -27,6 +27,8 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
+
 import org.doubango.ngn.media.NgnProxyPluginMgr;
 import org.doubango.ngn.services.INgnConfigurationService;
 import org.doubango.ngn.services.INgnContactService;
@@ -70,13 +72,16 @@ import java.io.File;
 public class NgnEngine {
     private final static String TAG = NgnEngine.class.getCanonicalName();
 
+    private Activity activity;
+
+    @Deprecated
     protected static NgnEngine sInstance;
     private static boolean sInitialized;
     private static final String DATA_FOLDER = String.format("/data/data/%s", NgnApplication.getInstance().getPackageName());
     private static final String LIBS_FOLDER = String.format("%s/lib", NgnEngine.DATA_FOLDER);
 
     protected boolean mStarted;
-    protected Activity mMainActivity;
+
 
     protected final NotificationManager mNotifManager;
     protected final Vibrator mVibrator;
@@ -89,6 +94,14 @@ public class NgnEngine {
     protected INgnHistoryService mHistoryService;
     protected INgnSipService mSipService;
     protected INgnSoundService mSoundService;
+
+    public void bindActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public void unbindActivity() {
+        this.activity = null;
+    }
 
     static {
         NgnEngine.initialize2();
@@ -159,6 +172,7 @@ public class NgnEngine {
      *
      * @return An instance of the NGN engine.
      */
+    @Deprecated //get from App.getInstance
     public static NgnEngine getInstance() {
         if (sInstance == null) {
             sInstance = new NgnEngine();
@@ -375,7 +389,7 @@ public class NgnEngine {
      * @sa @ref getMainActivity()
      */
     public void setMainActivity(Activity mainActivity) {
-        mMainActivity = mainActivity;
+        activity = mainActivity;
     }
 
     /**
@@ -385,7 +399,7 @@ public class NgnEngine {
      * @sa @ref setMainActivity()
      */
     public Activity getMainActivity() {
-        return mMainActivity;
+        return activity;
     }
 
     /**

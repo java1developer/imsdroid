@@ -20,6 +20,7 @@
 
 package org.doubango.ngn;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.KeyguardManager;
@@ -32,12 +33,18 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import org.doubango.ngn.data.NgnRepository;
+import org.doubango.ngn.permission.NgnPermissionManager;
 import org.doubango.ngn.utils.NgnStringUtils;
 import org.doubango.utils.AndroidUtils;
 import org.doubango.utils.CpuFeatures_t;
@@ -285,7 +292,47 @@ public class NgnApplication extends Application {
     private final static String TAG = NgnApplication.class.getCanonicalName();
 
     private static NgnApplication instance;
-    private PermissionManager permissionManager = new PermissionManager();
+    private NgnPermissionManager permissionManager = new NgnPermissionManager();
+    private NgnEngine ngnEngine;
+    private NgnRepository ngnRepository;
+
+    private class ActivityLifecycleCallbacksImpl implements ActivityLifecycleCallbacks {
+
+        @Override
+        public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
+            ngnEngine.bindActivity(activity);
+        }
+
+        @Override
+        public void onActivityStarted(@NonNull Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityResumed(@NonNull Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityPaused(@NonNull Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityStopped(@NonNull Activity activity) {
+
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(@NonNull Activity activity) {
+            ngnEngine.unbindActivity();
+        }
+    }
 
     private static PackageManager sPackageManager;
     private static String sPackageName;
@@ -329,7 +376,7 @@ public class NgnApplication extends Application {
      *
      * @return Android context
      */
-    @Deprecated //usee getInstance()
+    @Deprecated //use getInstance()
     public static Context getContext() {
         return getInstance();
     }
@@ -339,6 +386,11 @@ public class NgnApplication extends Application {
         super.onCreate();
 
         instance = this;
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacksImpl());
+        ngnEngine = new NgnEngine();
+        ngnRepository = new NgnRepository();
+
+
 
         sPackageManager = instance.getPackageManager();
         sPackageName = instance.getPackageName();
@@ -701,7 +753,15 @@ public class NgnApplication extends Application {
         return true;
     }
 
-    public PermissionManager getPermissionManager() {
+    public NgnPermissionManager getNgnPermissionManager() {
         return permissionManager;
+    }
+
+    public NgnEngine getNgnEngine() {
+        return ngnEngine;
+    }
+
+    public NgnRepository getNgnRepository() {
+        return ngnRepository;
     }
 }

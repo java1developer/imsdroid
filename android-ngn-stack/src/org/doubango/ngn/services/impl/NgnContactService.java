@@ -24,11 +24,13 @@ import java.util.List;
 
 import org.doubango.ngn.NgnApplication;
 import org.doubango.ngn.NgnEngine;
-import org.doubango.ngn.PermissionManager;
+import org.doubango.ngn.permission.NgnPermissionActionContainer;
+import org.doubango.ngn.permission.NgnPermissionManager;
 import org.doubango.ngn.events.NgnPermissionRequiredEventArgs;
 import org.doubango.ngn.model.NgnContact;
 import org.doubango.ngn.model.NgnPhoneNumber;
 import org.doubango.ngn.services.INgnContactService;
+import org.doubango.ngn.utils.INgnAction;
 import org.doubango.ngn.utils.NgnCallbackFunc;
 import org.doubango.ngn.utils.NgnListUtils;
 import org.doubango.ngn.utils.NgnObservableList;
@@ -69,10 +71,6 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 	private NgnCallbackFunc<String> mOnNewPhoneNumberCallback;
 	private NgnCallbackFunc<Object> mOnEndLoadCallback;
 	
-	/*public NgnContactService(){
-		super();
-	}*/
-	
 	@Override
 	public boolean start() {
 		Log.d(TAG, "starting...");
@@ -100,11 +98,20 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 									load();
 								}
 							};
-							if (PermissionManager.isReadContactPermissionOn()) {
-								NgnApplication.getInstance().getContentResolver().registerContentObserver(CommonDataKinds.Phone.CONTENT_URI, true, mLocalContactObserver);
+							NgnPermissionActionContainer actionContainer = new NgnPermissionActionContainer();
+							actionContainer.setAction(new INgnAction() {
+								@Override
+								public void execute() {
+									NgnApplication.getInstance().getContentResolver().registerContentObserver(CommonDataKinds.Phone.CONTENT_URI, true, mLocalContactObserver);
+								}
+							}).addPermission(Manifest.permission.READ_CONTACTS, "Because need contacts");
+
+							if (NgnPermissionManager.isReadContactPermissionOn()) {
+								actionContainer.getAction().execute();
 							} else {
+
 								NgnPermissionRequiredEventArgs.Builder builder = new NgnPermissionRequiredEventArgs.Builder();
-								PermissionManager.broadcastPermissionRequiredEvent(builder.addPermission(Manifest.permission.READ_CONTACTS).build());
+								NgnPermissionManager.broadcastPermissionRequiredEvent(builder.addPermission(Manifest.permission.READ_CONTACTS).build());
 							}
 						}
 					});
@@ -136,22 +143,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 		}
 		return true;
 	}
-	
-	@Override
-	public void setOnBeginLoadCallback(NgnCallbackFunc<Object> callback){
-		mOnBeginLoadCallback = callback;
-	}
-	
-	@Override
-	public void setOnNewPhoneNumberCallback(NgnCallbackFunc<String> callback){
-		mOnNewPhoneNumberCallback = callback;
-	}
-	
-	@Override
-	public void setOnEndLoadCallback(NgnCallbackFunc<Object> callback){
-		mOnEndLoadCallback = callback;
-	}
-	
+
 	@Override
 	public boolean load(){
 		return load2();
@@ -161,7 +153,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 		mLoading = true;
 		boolean bOK = false;
 		Cursor managedCursor = null;
-		final Activity activity = NgnEngine.getInstance().getMainActivity();
+		final Activity activity = NgnApplication.getInstance().getNgnEngine().getMainActivity();
 		final List<NgnContact> contactsCopy = new ArrayList<>();
 		
 		if(mOnBeginLoadCallback != null){
@@ -174,7 +166,7 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 			int id, type, photoId;
 			final Resources res = NgnApplication.getInstance().getResources();
 			
-			if(NgnApplication.getSDKVersion() >=5 && activity != null){
+			if(activity != null){
 				/*synchronized(mContacts)*/{
 					final String[] projectionContacts = new String[] { 
 							android.provider.BaseColumns._ID,
@@ -265,15 +257,6 @@ public class NgnContactService  extends NgnBaseService implements INgnContactSer
 		return bOK;
 	}
 
-	@Override
-	public boolean isLoading() {
-		return mLoading;
-	}
-
-	@Override
-	public boolean isReady(){
-		return mReady;
-	}
 	
 	@Override
 	public NgnObservableList <NgnContact> getObservableContacts() {
